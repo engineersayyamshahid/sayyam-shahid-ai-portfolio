@@ -1,0 +1,12 @@
+import './globals.css';import Link from 'next/link';import {CFG as C} from '@/lib/site';import {SITE} from '@/lib/api';import {Providers,T} from '@/components/Providers';import Nav from '@/components/Nav';import Chat from '@/components/Chat';import Fx from '@/components/Fx';
+export const metadata={metadataBase:new URL(SITE),title:{default:C.title,template:'%s | '+C.name},description:C.desc,keywords:C.keywords,authors:[{name:C.name}],alternates:{canonical:'/'},
+openGraph:{type:'website',siteName:C.brand,title:C.title,description:C.desc,url:SITE,images:['/sayyam.png']},twitter:{card:'summary_large_image',title:C.title,description:C.desc}};
+const ld={'@context':'https://schema.org','@type':'Person',name:C.name,jobTitle:C.role,url:SITE,image:SITE+'/sayyam.png',email:C.email,address:{'@type':'PostalAddress',addressLocality:'Islamabad',addressCountry:'PK'},sameAs:Object.values(C.social),knowsAbout:['Next.js','React','Node.js','MongoDB','Artificial Intelligence','RAG','AI Agents']};
+const boot="try{var t=localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');var l=localStorage.getItem('lg')||'en',h=document.documentElement;h.dataset.theme=t;h.lang=l;h.dir=(l=='ar'||l=='ur')?'rtl':'ltr';h.classList.add('js')}catch(e){}";
+export default function Root({children}){return(<html lang="en" data-theme="dark" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html:boot}}/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=Inter:wght@400;500&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet"/></head><body>
+<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(ld)}}/>
+<Providers><Fx/><Nav/><main>{children}</main>
+<footer><div className="wrap two"><div><b style={{color:'var(--tx)'}}>{C.name}</b> · {C.role}<br/>Building intelligent digital experiences with AI and modern web technologies.<br/>© {new Date().getFullYear()} {C.name} · <Link href="/admin"><T k="dash"/></Link></div><div>{Object.entries(C.social).map(([k,v])=><a key={k} href={v} target="_blank" rel="noopener" style={{marginInlineEnd:12}}>{k}</a>)}</div></div></footer>
+<Chat/><a className="wa" href={`https://wa.me/${C.wa}?text=Hi%20Sayyam%2C%20I%20saw%20your%20portfolio.`} target="_blank" rel="noopener" aria-label="WhatsApp">💬</a></Providers>
+</body></html>)}

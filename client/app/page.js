@@ -1,0 +1,24 @@
+import Link from 'next/link';import {get} from '@/lib/api';import {list,EXP,EDU,DOCS} from '@/lib/data';import {CFG as C} from '@/lib/site';import {T} from '@/components/Providers';import Net from '@/components/Net';import Typer from '@/components/Typer';import Count from '@/components/Count';import Card from '@/components/Card';import ContactForm from '@/components/ContactForm';import ReviewForm from '@/components/ReviewForm';
+export const revalidate=60;
+const Stars=({n})=><span className="st">{'★'.repeat(n)}{'☆'.repeat(5-n)}</span>;
+export default async function Home(){
+const [sk,pj,ce,bl,te]=await Promise.all(['skill','project','certificate','blog','testimonial'].map(list));const rv=(await get('/reviews?postSlug='))||[];
+return(<>
+<header className="hero"><Net/><div className="wrap hg"><div><span className="av"><i/><T k="open"/></span><h1>{C.name}<br/><span className="g">{C.role}</span></h1><Typer/><p className="mu lead"><T k="tagline"/></p>
+<div><Link className="btn pr" href="/projects"><T k="cta1"/></Link><a className="btn" href="#contact"><T k="cta2"/></a><Link className="btn" href="/blog"><T k="cta3"/></Link></div>
+<div className="soc">{Object.entries(C.social).map(([k,v])=><a key={k} href={v} target="_blank" rel="noopener">{k}</a>)}</div></div>
+<div className="ph"><img src="/sayyam.png" alt="Sayyam Shahid, Full Stack AI Engineer"/></div></div></header>
+<section className="stats rv"><div className="wrap grid3">{[[pj.length,'st_p'],[ce.length,'st_c'],[3,'st_t']].map(([n,k])=><div key={k}><b className="g"><Count to={n}/></b><span className="mu"><T k={k}/></span></div>)}</div></section>
+<div className="mq" aria-hidden="true"><div className="mt">{[...sk.flatMap(s=>s.tags),...sk.flatMap(s=>s.tags)].map((t,i)=><span key={i}>{t}</span>)}</div></div>
+<section className="sec rv" id="about"><div className="wrap two"><div><h2><T k="about_t"/></h2><p className="mu"><T k="about_p1"/></p><p className="mu"><T k="about_p2"/></p></div>
+<div className="grid">{[1,2,3,4].map(i=><div className="card" key={i}><h3 style={{fontSize:18}}><T k={'sv'+i}/></h3><p><T k={'sv'+i+'d'}/></p></div>)}</div></div></section>
+<section className="sec rv" id="skills"><div className="wrap"><h2><T k="skills_t"/></h2><div className="grid">{sk.map(s=><div className="card" key={s._id}><h3 style={{fontSize:18}}>{s.title}</h3>{s.tags.map(t=><span className="chip" key={t}>{t}</span>)}</div>)}</div></div></section>
+<section className="sec rv" id="experience"><div className="wrap two"><div><h2><T k="exp_t"/></h2><div className="tl">{EXP.map(e=><div key={e.role}><small>{e.when}</small><h3 style={{fontSize:19,marginBottom:2}}>{e.role}</h3><span className="mu">{e.org}</span><ul>{e.pts.map(p=><li key={p}>{p}</li>)}</ul></div>)}</div></div>
+<div><h2><T k="edu_t"/></h2><div className="tl">{EDU.map(e=><div key={e.t}><small>{e.w}</small><h3 style={{fontSize:19,marginBottom:2}}>{e.t}</h3><span className="mu">{e.o}</span></div>)}</div></div></div></section>
+<section className="sec rv"><div className="wrap"><h2><T k="projects_t"/></h2><div className="grid">{pj.slice(0,6).map(d=><Card key={d._id} d={d} base="projects"/>)}</div><p><Link href="/projects" className="g"><T k="all_projects"/> →</Link></p></div></section>
+<section className="sec rv"><div className="wrap"><h2><T k="certs_t"/> ({ce.length})</h2><div className="grid">{ce.slice(0,8).map(d=><Card key={d._id} d={d} base="certificates"/>)}</div><p><Link href="/certificates" className="g"><T k="all_certs"/> →</Link></p></div></section>
+<section className="sec rv"><div className="wrap"><h2><T k="docs_t"/></h2><div className="grid">{DOCS.map(([s,t])=><a key={s} className="card" href={s} target="_blank" rel="noopener"><img className="ci" style={{height:200}} src={s} alt={t} loading="lazy"/><p style={{margin:0}}>{t}</p></a>)}</div></div></section>
+<section className="sec rv"><div className="wrap"><h2><T k="blog_t"/></h2><div className="grid">{bl.slice(0,3).map(d=><Card key={d._id} d={d} base="blog"/>)}</div></div></section>
+<section className="sec rv" id="reviews"><div className="wrap two"><div><h2><T k="fb_t"/></h2>{[...te,...rv].length?<div className="grid" style={{gridTemplateColumns:'1fr'}}>{te.map(t=><div className="card" key={t._id}><Stars n={5}/><p>{t.excerpt}</p><b>{t.title}</b> <span className="mu">{t.meta}</span></div>)}{rv.map(r=><div className="card" key={r._id}><Stars n={r.rating}/><p>{r.text}</p><b>{r.name}</b></div>)}</div>:<p className="mu"><T k="r_empty"/></p>}</div><div><h2><T k="rev_t"/></h2><ReviewForm/></div></div></section>
+<section className="sec rv" id="contact"><div className="wrap two"><div><h2><T k="contact_t"/></h2><p className="mu"><T k="contact_p"/><br/>{C.email}<br/>03185903219 · 03115219248<br/>Islamabad, Pakistan</p><a className="btn pr" href={`https://wa.me/${C.wa}`} target="_blank" rel="noopener">WhatsApp</a><a className="btn" href={`mailto:${C.email}`}>Email</a></div><ContactForm/></div></section>
+</>)}

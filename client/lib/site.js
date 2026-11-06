@@ -1,0 +1,7 @@
+export const CFG={brand:'SAYYAM.AI',name:'Sayyam Shahid',role:'Full Stack AI Engineer',
+title:'Sayyam Shahid | Full Stack AI Engineer & MERN Developer in Islamabad, Pakistan',
+desc:'Full Stack AI Engineer in Islamabad, Pakistan. I build Next.js and MERN web apps, AI chatbots, RAG systems and automation for startups and businesses worldwide.',
+keywords:['full stack AI engineer Pakistan','MERN stack developer Islamabad','Next.js developer Pakistan','hire freelance web developer Pakistan','AI chatbot development','RAG application developer','AI automation n8n','React developer for hire','SaaS development Pakistan','Sayyam Shahid'],
+email:'engineersayyamshahid@gmail.com',wa:'923185903219',
+social:{GitHub:'https://github.com/engineersayyamshahid',LinkedIn:'https://www.linkedin.com/in/sayyam-shahid-939bb135a/',Instagram:'https://www.instagram.com/why_sayyam/',Facebook:'https://www.facebook.com/profile.php?id=61551032580912','SYFA Digital':'https://syfadigital.com/'}};
+export const SECTIONS={blog:{type:'blog',title:'Blog',desc:'Articles on web development, AI and freelancing.'},articles:{type:'article',title:'Articles',desc:'In-depth technical articles on AI, RAG and full stack engineering.'},projects:{type:'project',title:'Projects',desc:'Client and product work: AI systems, e-commerce and management platforms.'},certificates:{type:'certificate',title:'Certificates',desc:'Verified courses from IBM, Google, Microsoft and DeepLearning.AI.'}};
